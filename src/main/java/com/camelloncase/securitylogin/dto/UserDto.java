@@ -3,12 +3,11 @@ package com.camelloncase.securitylogin.dto;
 public class UserDto {
 	
 	private String username;
+	private String email;
 	private String password;
 	private String fullname;
 	
-	public UserDto() {
-		
-	}
+	public UserDto() { }
 
 	public UserDto(String username, String password, String fullname) {
 		super();
@@ -25,6 +24,14 @@ public class UserDto {
 		this.username = username;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}

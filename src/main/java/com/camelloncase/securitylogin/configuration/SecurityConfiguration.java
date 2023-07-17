@@ -33,7 +33,7 @@ public class SecurityConfiguration {
         http.csrf(withDefaults())
                 .authorizeHttpRequests(authorizeRequests ->
                 	authorizeRequests
-	                	.antMatchers("/register").permitAll()
+	                	.antMatchers("/user/registration").permitAll()
 	                    .antMatchers("/home").permitAll()
         		)
                 .formLogin(formlogin -> 

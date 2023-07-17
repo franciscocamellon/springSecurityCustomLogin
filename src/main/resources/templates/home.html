@@ -5,38 +5,52 @@
 <title>Home</title>
 <style>
 	body {
-  background-color: #f2f2f2;
-}
-
-.container {
-  width: 400px;
-  margin: 100px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333333;
-}
-
-p {
-  font-size: 16px;
-  color: #666666;
-  margin-top: 10px;
-}
+	  background-color: #f2f2f2;
+	}
+	
+	.container {
+	  width: 400px;
+	  margin: 100px auto;
+	  padding: 20px;
+	  background-color: #ffffff;
+	  border: 1px solid #ccc;
+	  border-radius: 5px;
+	  text-align: center;
+	}
+	
+	h1 {
+	  font-size: 24px;
+	  font-weight: bold;
+	  color: #333333;
+	}
+	
+	p {
+	  font-size: 16px;
+	  color: #666666;
+	  margin-top: 10px;
+	}
 
 </style>
 </head>
 <body>
 	<div class="container">
-    <h1 th:text="${userdetail.fullname}" >Welcome, John Doe</h1>
-    <p>This is your dashboard. Enjoy your experience!</p>
-  </div>
+		<div th:if="${userdetail}">
+			<h1 th:text="${userdetail.fullname}" ></h1>
+			<p>This is your dashboard. Enjoy your experience!</p>
+			<div>
+				<span sec:authorize="isAuthenticated"><a th:href="@{/logout}">Logout</a></span>
+			</div>
+		</div>
+		<div th:unless="${userdetail}">
+			<h1>Dashboard</h1>
+			<p>This is your dashboard. Log in to enjoy your experience!</p>
+			<div>
+				<span>Already registered <a th:href="@{/login}">Login</a></span>
+				<span>Register here <a th:href="@{/user/registration}">Register</a></span>
+			</div>
+		</div>
+		
+	</div>
 
 </body>
 </html>

@@ -79,7 +79,7 @@
 			<p>Logout successful!</p>
 		  </div>
 	  </div>
-    <h2>Registration Form</h2>
+    <h2>Login Form</h2>
     
     <form method="post" role="form" th:action="@{/login}" th:object="${user}">
       <div class="form-group">
@@ -93,7 +93,7 @@
       <div class="form-group">
         <button type="submit">Login</button>
       </div>
-      <span>Register here <a th:href="@{/register}">Register</a></span>
+      <span>Register <a th:href="@{/user/registration}">here</a></span>
   </div>
 
 </body>

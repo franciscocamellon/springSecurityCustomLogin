@@ -1,4 +1,4 @@
-package com.camelloncase.securitylogin;
+package com.camelloncase.securitylogin.controller;
 
 import java.security.Principal;
 
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.camelloncase.securitylogin.dto.UserDto;
+import com.camelloncase.securitylogin.exception.UserAlreadyExistException;
 import com.camelloncase.securitylogin.service.UserService;
 
 @Controller
@@ -20,11 +21,8 @@ public class UserController {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
 	private UserService userService;
-	
-	public UserController(UserService userService) {
-		this.userService = userService;
-	}
 
 	@GetMapping("/home")
 	public String home(Model model, Principal principal) {
@@ -39,16 +37,24 @@ public class UserController {
 		return "login";
 	}
 	
-	@GetMapping("/register")
-	public String register(Model model, UserDto userDto) {
+	@GetMapping("/user/registration")
+	public String showRegisterForm(Model model, UserDto userDto) {
 		model.addAttribute("user", userDto);
-		return "register";
+		return "/user/registration";
 	}
 	
-	@PostMapping("/register")
-	public String registerSave(@ModelAttribute("user") UserDto userDto) {
-		userService.save(userDto);
-		return "redirect:/register?success";
+	@PostMapping("/user/registration")
+	public String registerUserAccount(Model model, @ModelAttribute("user") UserDto userDto) {
+		
+		try {
+			userService.save(userDto);
+		} catch (UserAlreadyExistException e) {
+			model.addAttribute("useralreadyexist", e);
+			return "redirect:/registration?failed";
+		}
+		
+//		return "redirect:/user/registration?success";
+		return "login";
 	}
 
 }
